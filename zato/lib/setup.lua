@@ -8,4 +8,9 @@ function setup_love()
   -- add later on when an icon is made
   -- local iconImage = love.graphics.newImage("assets/img/logos/icon.png")
   -- love.window.setIcon(iconImage)
+
+  function love.quit()
+    -- disconnect stuff and logout (add later on)
+  end
+
 end
