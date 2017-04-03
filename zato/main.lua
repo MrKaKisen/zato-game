@@ -6,9 +6,9 @@
 require("lib/server")
 require("lib/setup")
 -- require different states (used soon)
---require("gamestates/mainmenu.lua")
---require("gamestates/serverselect.lua")
-require("gamestates/ingame.lua")
+require("gamestates/mainmenu.lua")
+require("gamestates/serverselect.lua")
+require("gamestates/ingame")
 
 
 -- setup love
