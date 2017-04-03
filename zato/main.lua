@@ -15,8 +15,6 @@ require("gamestates/ingame")
 setup_love()
 
 -- do things
-while true do
-  -- mainmenu_main()
-  -- serverselect_main()
-  ingame_main()
-end
+-- mainmenu_main()
+-- serverselect_main()
+ingame_main()
