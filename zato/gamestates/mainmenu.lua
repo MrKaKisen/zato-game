@@ -1,0 +1,3 @@
+-- zato
+-- mainmenu
+-- runs when in the mainmenu
