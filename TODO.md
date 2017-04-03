@@ -7,3 +7,4 @@
 * Add sounds (music and effects)
 * Start adding network/server stuff
 * Online auth
+* Add enemies
