@@ -1,20 +1,12 @@
 -- zato
 -- ingame
--- runs when ingame
 
-function ingame_main()
-  -- love load
-  function love.load()
+function ingame_update(dt)
+  -- love update when gamestate is ingame
 
-  end
+end
 
-  -- love update
-  function love.update(dt)
+function ingame_draw()
+  -- love draw when gamestate is ingame
 
-  end
-
-  -- love draw
-  function love.draw()
-
-  end
 end
