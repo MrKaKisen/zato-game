@@ -34,6 +34,8 @@ pipeline {
 
                 sh "zip -r Zato-Windows-${BUILD_NUMBER}.zip Zato-Windows-${BUILD_NUMBER}"
 
+                sh "rm Zato-${BUILD_NUMBER}.exe"
+
                 archiveArtifacts artifacts: 'Zato-*', fingerprint: true
             }
         }
