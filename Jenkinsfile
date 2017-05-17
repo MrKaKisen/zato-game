@@ -19,7 +19,7 @@ pipeline {
             steps {
                 echo "Building Zato Windows exe.."
                 sh "zip -9 -r Zato-${BUILD_NUMBER}.love zato"
-                sh "cat love-0.10.2-win64/love.exe zato/Zato-${BUILD_NUMBER}.love > Zato-${BUILD_NUMBER}.exe"
+                sh "cat love-0.10.2-win64/love.exe Zato-${BUILD_NUMBER}.love > Zato-${BUILD_NUMBER}.exe"
                 archiveArtifacts artifacts: 'Zato-*', fingerprint: true
             }
         }
