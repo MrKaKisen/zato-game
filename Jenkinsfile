@@ -18,9 +18,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Building Zato Windows exe.."
-                sh "cd zato"
-                sh "zip -9 -r Zato-${BUILD_NUMBER}.love ."
-                sh "cd .."
+                sh "cd zato && zip -9 -r Zato-${BUILD_NUMBER}.love . && cd .."
                 sh "mv zato/Zato-${BUILD_NUMBER}.love Zato-${BUILD_NUMBER}.love"
                 sh "cat love-0.10.2-win64/love.exe Zato-${BUILD_NUMBER}.love > Zato-${BUILD_NUMBER}.exe"
 
