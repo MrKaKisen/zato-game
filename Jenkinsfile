@@ -18,7 +18,10 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Building Zato Windows exe.."
-                sh "zip -9 -r Zato-${BUILD_NUMBER}.love zato"
+                sh "cd zato"
+                sh "zip -9 -r Zato-${BUILD_NUMBER}.love ."
+                sh "cd .."
+                sh "mv zato/Zato-${BUILD_NUMBER}.love Zato-${BUILD_NUMBER}.love"
                 sh "cat love-0.10.2-win64/love.exe Zato-${BUILD_NUMBER}.love > Zato-${BUILD_NUMBER}.exe"
 
                 sh "mkdir Zato-Windows-${BUILD_NUMBER}"
@@ -35,6 +38,10 @@ pipeline {
                 sh "zip -r Zato-Windows-${BUILD_NUMBER}.zip Zato-Windows-${BUILD_NUMBER}"
 
                 sh "rm Zato-${BUILD_NUMBER}.exe"
+
+                echo "Building Zato Linux executable.."
+                sh "cat /usr/bin/love Zato-${BUILD_NUMBER}.love > Zato-Linux-${BUILD_NUMBER}"
+                sh "chmod a+x ./Zato-Linux-${BUILD_NUMBER}"
 
                 archiveArtifacts artifacts: 'Zato-*', fingerprint: true
             }
