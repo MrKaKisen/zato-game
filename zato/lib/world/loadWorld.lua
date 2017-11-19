@@ -1,3 +1,0 @@
--- zato
--- loadWorld
--- has functions for loading the world

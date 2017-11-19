@@ -1,3 +1,0 @@
--- zato
--- draWworld
--- has functions for drawing the world

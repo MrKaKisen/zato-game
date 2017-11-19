@@ -1,0 +1,3 @@
+availableMaps = {
+  demo = "demo-map"
+}
