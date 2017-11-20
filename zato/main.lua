@@ -25,18 +25,12 @@ fps = {}
 fps.enabled = false
 fps.changeCooldown = 0
 
-screen = {}
-screen.width = love.graphics.getWidth( )
-screen.height = love.graphics.getHeight( )
-screen.mode = "window"
-screen.changeCooldown = 0
-
-gamestate = gamestates.mainmenu
+gamestate = gamestates.login
 
 -- love load
 function love.load()
   -- setup love
-  setup_love()
+  screen = setup_love()
 
 end
 
@@ -72,22 +66,30 @@ function love.update(dt)
         success = love.window.setFullscreen(true, "desktop")
         screen.mode = "fullscren"
         screen.changeCooldown = 15
+
+        screen.width = love.graphics.getWidth( )
+        screen.height = love.graphics.getHeight( )
       else
         success = love.window.setFullscreen(false, "desktop")
         screen.mode = "window"
         screen.changeCooldown = 15
+
+        screen.width = love.graphics.getWidth( )
+        screen.height = love.graphics.getHeight( )
       end
     end
   end
 
+  print(gamestate)
+
   if gamestate == gamestates.login then
-    login_update(dt)
+    gamestate = login_update(dt)
   elseif gamestate == gamestates.mainmenu then
-    mainmenu_update(dt)
+    gamestate = mainmenu_update(dt)
   elseif gamestate == gamestates.ingame then
-    ingame_update(dt)
+    gamestate = ingame_update(dt)
   elseif gamestate == gamestates.serverselect then
-    serverselect_update(dt)
+    gamestate = serverselect_update(dt)
   end
 end
 
@@ -98,7 +100,7 @@ function love.draw()
   -- global draw functions (hardcoded)
   if fps.enabled == true then
     love.graphics.setNewFont(14)
-    love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), screen.width, 5)
+    love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), screen.width-70, 5)
   end
 
   if gamestate == gamestates.login then

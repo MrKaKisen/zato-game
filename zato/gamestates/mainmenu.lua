@@ -7,6 +7,14 @@ require("../lib/map/mapParse")
 
 menu = {}
 
+-- global gamestates
+local gamestates = {
+  login = 0,
+  mainmenu = 1,
+  ingame = 2,
+  serverselect = 3
+}
+
 local menuOptions = {
   play = 1,
   settings = 2,
@@ -86,11 +94,19 @@ function mainmenu_update(dt)
       parseMapConf(availableMaps)
     end
 
+    if love.keyboard.isDown("return") then
+      return gamestates.ingame
+    end
+
   elseif menu.menuState == menuStates.settings then
     if love.keyboard.isDown("escape") or love.keyboard.isDown("backspace") then
       menu.menuState = menuStates.main
     end
   end
+
+  -- return gamestate mainmenu as we want to continue here
+  return gamestates.mainemnu
+
 end
 
 function mainmenu_draw()
