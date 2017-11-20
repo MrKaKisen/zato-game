@@ -1,0 +1,3 @@
+-- Zato
+-- draw shadows
+-- Copyright Vilhelm Prytz 2017
