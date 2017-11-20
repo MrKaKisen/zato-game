@@ -38,7 +38,9 @@ playState.loaded = false
 
 settingState = {}
 
-function mainmenu_update(dt)
+function mainmenu_update(dt, gamestate)
+  gamestate = gamestate.mainmenu
+  
   if menu.menuState == menuStates.main then
     if menu.JustChanged == true then
       if menu.Cooldown > 0 then
@@ -95,7 +97,7 @@ function mainmenu_update(dt)
     end
 
     if love.keyboard.isDown("return") then
-      return gamestates.ingame
+      gamestate = gamestates.ingame
     end
 
   elseif menu.menuState == menuStates.settings then
@@ -105,7 +107,7 @@ function mainmenu_update(dt)
   end
 
   -- return gamestate mainmenu as we want to continue here
-  return gamestates.mainemnu
+  return gamestate
 
 end
 

@@ -85,7 +85,9 @@ function love.update(dt)
   if gamestate == gamestates.login then
     gamestate = login_update(dt)
   elseif gamestate == gamestates.mainmenu then
+    print(gamestate .. " no ?")
     gamestate = mainmenu_update(dt)
+    print(gamestate .. " ye ?")
   elseif gamestate == gamestates.ingame then
     gamestate = ingame_update(dt)
   elseif gamestate == gamestates.serverselect then
