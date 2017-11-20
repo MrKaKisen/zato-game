@@ -8,3 +8,5 @@
 * Start adding network/server stuff
 * Online auth
 * Game states online
+
+* check nil for gamestate return
