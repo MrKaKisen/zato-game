@@ -32,17 +32,35 @@ menu.Option = menuOptions.play
 menu.Cooldown = 0
 menu.JustChanged = false
 menu.CooldownSet = 10
+menu.switchGamestate = false
+menu.gameStateTo = nil
+-- debug
+menu.debug = true
 
 playState = {}
 playState.loaded = false
 
+
 settingState = {}
 
 function mainmenu_keypressed(key)
-
+  if menu.menuState == menuStates.play then
+    if key == "return" then
+      menu.gameStateTo = gamestates.ingame
+      menu.switchGamestate = true
+    end
+  end
 end
 
 function mainmenu_update(dt)
+
+  if menu.switchGamestate == true then
+    if menu.gameStateTo ~= nil then
+      return menu.gameStateTo
+    else
+      love.event.quit(1)
+    end
+  end
 
   if menu.menuState == menuStates.main then
     if menu.JustChanged == true then
@@ -87,28 +105,28 @@ function mainmenu_update(dt)
     end
 
   elseif menu.menuState == menuStates.play then
-    if love.keyboard.isDown("escape") or love.keyboard.isDown("backspace") then
-      menu.menuState = menuStates.main
-      playState.loaded = false
-    end
+    if menu.debug == true then
+      if love.keyboard.isDown("escape") or love.keyboard.isDown("backspace") then
+        menu.menuState = menuStates.main
+        playState.loaded = false
+      end
 
-    if playState.loaded == false then
-      playState.loaded = true
+      if playState.loaded == false then
+        playState.loaded = true
 
-      require("../assets/maps/maps-list")
-      parseMapConf(availableMaps)
-    end
+        require("../assets/maps/maps-list")
+        parseMapConf(availableMaps)
+      end
 
-    if love.keyboard.isDown("return") then
-      return gamestates.ingame
+    elseif menu.menuState == menuStates.settings then
+      if love.keyboard.isDown("escape") or love.keyboard.isDown("backspace") then
+        menu.menuState = menuStates.main
+      end
     end
-
-  elseif menu.menuState == menuStates.settings then
-    if love.keyboard.isDown("escape") or love.keyboard.isDown("backspace") then
-      menu.menuState = menuStates.main
-    end
+  else
+    menu.gameStateTo = gamestate.serverselect
+    menu.switchGamestate = true
   end
-
 end
 
 function mainmenu_draw()
@@ -143,6 +161,7 @@ function mainmenu_draw()
     if playState.loaded == true then
       love.graphics.print("Zato" , 10, 10)
       love.graphics.print("Play" , 50, 10)
+      love.graphics.print("Press ENTER to load the demo map. You're in debug mode.", 10, 30)
 
     end
   elseif menu.menuState == menuStates.settings then
