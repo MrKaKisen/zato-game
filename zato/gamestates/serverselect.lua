@@ -13,5 +13,5 @@ end
 
 function serverselect_draw()
   -- love draw when gamestate is in serverselect
-
+  love.graphics.print("Zato - Select Server" , 10, 10)
 end

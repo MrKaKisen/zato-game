@@ -117,16 +117,16 @@ function mainmenu_update(dt)
         require("../assets/maps/maps-list")
         parseMapConf(availableMaps)
       end
+    else
+      menu.gameStateTo = gamestates.serverselect
+      menu.switchGamestate = true
+    end
 
     elseif menu.menuState == menuStates.settings then
       if love.keyboard.isDown("escape") or love.keyboard.isDown("backspace") then
         menu.menuState = menuStates.main
       end
     end
-  else
-    menu.gameStateTo = gamestate.serverselect
-    menu.switchGamestate = true
-  end
 end
 
 function mainmenu_draw()
