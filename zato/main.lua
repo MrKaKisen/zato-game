@@ -5,6 +5,7 @@
 -- require stuff (lib)
 require("lib/server")
 require("lib/setup")
+require("lib/globalEvents")
 ingame ={},
 
 -- require different states (used soon)
@@ -21,10 +22,6 @@ local gamestates = {
   serverselect = 3
 }
 
-fps = {}
-fps.enabled = false
-fps.changeCooldown = 0
-
 gamestate = gamestates.login
 
 -- love load
@@ -34,76 +31,45 @@ function love.load()
 
 end
 
+
+-- Love keypressed
+function love.keypressed(key)
+  if gamestate == gamestates.login then
+    login_keypressed(key)
+  elseif gamestate == gamestates.mainmenu then
+    mainmenu_keypressed(key)
+  elseif gamestate == gamestates.ingame then
+    ingame_keypressed(key)
+  elseif gamestate == gamestates.serverselect then
+    serverselect_keypressed(key)
+  end
+end
+
 -- love update
 function love.update(dt)
-
-  -- cooldowns
-  if screen.changeCooldown > 0 then
-    screen.changeCooldown = screen.changeCooldown-1
-  end
-  if fps.changeCooldown > 0 then
-    fps.changeCooldown = fps.changeCooldown-1
-  end
-
-  -- global update functions (hardcoded)
-  if love.keyboard.isDown("f5") then
-    love.event.quit( "restart" )
-  end
-  if love.keyboard.isDown("f6") then
-    if fps.changeCooldown == 0 then
-      if fps.enabled == true then
-        fps.enabled = false
-        fps.changeCooldown = 15
-      elseif fps.enabled == false then
-        fps.enabled = true
-        fps.changeCooldown = 15
-      end
-    end
-  end
-  if love.keyboard.isDown("f12") then
-    if screen.changeCooldown == 0 then
-      if screen.mode == "window" then
-        success = love.window.setFullscreen(true, "desktop")
-        screen.mode = "fullscren"
-        screen.changeCooldown = 15
-
-        screen.width = love.graphics.getWidth( )
-        screen.height = love.graphics.getHeight( )
-      else
-        success = love.window.setFullscreen(false, "desktop")
-        screen.mode = "window"
-        screen.changeCooldown = 15
-
-        screen.width = love.graphics.getWidth( )
-        screen.height = love.graphics.getHeight( )
-      end
-    end
-  end
-
-  print(gamestate)
+  -- global events
+  globalEvent_update(dt, screen)
 
   if gamestate == gamestates.login then
-    gamestate = login_update(dt)
+    gamestateReturn = login_update(dt)
   elseif gamestate == gamestates.mainmenu then
-    print(gamestate .. " no ?")
-    gamestate = mainmenu_update(dt)
-    print(gamestate .. " ye ?")
+    gamestateReturn = mainmenu_update(dt)
   elseif gamestate == gamestates.ingame then
-    gamestate = ingame_update(dt)
+    gamestateReturn = ingame_update(dt)
   elseif gamestate == gamestates.serverselect then
-    gamestate = serverselect_update(dt)
+    gamestateReturn = serverselect_update(dt)
+  end
+
+  if gamestateReturn ~= nil then
+    gamestate = gamestateReturn
   end
 end
 
 
 -- love draw
 function love.draw()
-
-  -- global draw functions (hardcoded)
-  if fps.enabled == true then
-    love.graphics.setNewFont(14)
-    love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), screen.width-70, 5)
-  end
+  -- global events
+  globalEvent_draw()
 
   if gamestate == gamestates.login then
     login_draw()

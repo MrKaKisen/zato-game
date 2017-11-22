@@ -1,6 +1,10 @@
 -- zato
 -- ingame
 
+function ingame_keypressed()
+
+end
+
 function ingame_update(dt)
   -- love update when gamestate is ingame
 

@@ -10,6 +10,10 @@ local gamestates = {
   serverselect = 3
 }
 
+function login_keypressed()
+
+end
+
 function login_update(dt)
   -- love update when gamestate is in login
   return gamestates.mainmenu

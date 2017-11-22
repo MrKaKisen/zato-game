@@ -2,6 +2,10 @@
 -- serverselect
 -- runs when in the serverselect
 
+function serverselect_keypressed()
+
+end
+
 function serverselect_update(dt)
   -- love update when gamestate is in serverselect
 
