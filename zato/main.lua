@@ -3,9 +3,9 @@
 -- Copyright Vilhelm Prytz 2017
 
 -- require stuff (lib)
-require("lib/server")
 require("lib/setup")
 require("lib/globalEvents")
+require("lib/networking")
 ingame ={},
 
 -- require different states (used soon)
